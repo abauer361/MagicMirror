@@ -7,6 +7,7 @@
  * see https://docs.magicmirror.builders/getting-started/configuration.html#general
  * and https://docs.magicmirror.builders/modules/configuration.html
  */
+
 let config = {
 	address: "localhost", 	// Address to listen on, can be:
 							// - "localhost", "127.0.0.1", "::1" to listen on loopback interface
@@ -29,8 +30,8 @@ let config = {
 	language: "en",
 	locale: "en-US",
 	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // Add "DEBUG" for even more logging
-	timeFormat: 24,
-	units: "metric",
+	timeFormat: 12,
+	units: "imperial",
 	// serverOnly:  true/false/"local" ,
 	// local for armv6l processors, default
 	//   starts serveronly and then starts chrome browser
@@ -38,45 +39,112 @@ let config = {
 	// true, force serveronly mode, because you want to.. no UI on this device
 
 	modules: [
+	
+		//Alerts
 		{
 			module: "alert",
 		},
+		
+		//Updates
 		{
 			module: "updatenotification",
 			position: "top_bar"
 		},
+		
+		//Clock
 		{
 			module: "clock",
 			position: "top_left"
 		},
+		
+		//Apple Calendar
 		{
-			module: "calendar",
-			header: "US Holidays",
-			position: "top_left",
+			module: 'calendar',
+			header: 'Upcoming Events',
+			position: 'top_left',
 			config: {
+				maximumNumberOfDays: 10,
+				maximumEntries: 7,
 				calendars: [
-					{
-						symbol: "calendar-check",
-						url: "webcal://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics"
-					}
+						//https://fontawesome.com/v5.15/icons for icons
+						//Self Growth
+						{
+								url: 'CALENDARY_URL,
+								symbol: 'network-wired'
+						},
+						//Socializing
+						{
+								url: 'CALENDARY_URL',
+								symbol: 'users'
+						},
+						//Car Stuff
+						{
+								url: 'CALENDARY_URL',
+								symbol: 'car'
+						},
+						//Holidays
+						{
+								symbol: "glass-cheers",
+								url: "webcal://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics"
+						}
 				]
 			}
 		},
+		
+		//Spotify Module
+		{
+		  module: "MMM-NowPlayingOnSpotify",
+		  position: "top_left",
+
+		  config: {
+			clientID: "<YOUR_CLIENT_ID>",
+			clientSecret: "<YOUR_CLIENT_SECRET>",
+			accessToken: "<YOUR_ACCESS_TOKEN>",
+			refreshToken: "<YOUR_REFRESH_TOKEN>"
+		  }
+		},
+
+		//Compliments Module
 		{
 			module: "compliments",
 			position: "lower_third"
 		},
+		
+		//Camera On-Off
+		// {
+		// 	module: 'MMM-PIR-Sensor', 
+		// 	position: "top_center", // Remove this line to avoid having an visible indicator
+		// 	config: {
+		// 		sensorPin: 22,
+		// 		powerSavingDelay: 240, // Turn HDMI OFF after 60 seconds of no motion, until motion is detected again
+		// 		powerSavingNotification : true,
+		// 		powerSavingMessage: "The Mirror is Powering Off.",
+		// 		preventHDMITimeout: 1, // Turn HDMI ON and OFF again every 4 minutes when power saving, to avoid LCD/TV timeout
+		// 		supportCEC: true, 
+		// 		presenceIndicator: "fa-eye", // Customizing the indicator
+		// 		presenceOffIndicator: "fa-eye", // Customizing the indicator
+		// 		presenceIndicatorColor: "#f51d16", // Customizing the indicator
+		// 		presenceOffIndicatorColor: "#2b271c" // Customizing the indicator
+		// 	}
+		// },
+        
+        //Current Weather
 		{
 			module: "weather",
 			position: "top_right",
 			config: {
 				weatherProvider: "openweathermap",
 				type: "current",
-				location: "New York",
-				locationID: "5128581", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				apiKey: "YOUR_OPENWEATHER_API_KEY"
+				location: "Irvine",
+				locationID: "5359777", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				apiKey: "INSERT_API_KEY_HERE",
+				roundTemp: "true",
+				degreeLabel: "true",
+				showPeriodUpper: "true"
 			}
 		},
+		
+		//Forecasted weather
 		{
 			module: "weather",
 			position: "top_right",
@@ -84,11 +152,13 @@ let config = {
 			config: {
 				weatherProvider: "openweathermap",
 				type: "forecast",
-				location: "New York",
-				locationID: "5128581", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
-				apiKey: "YOUR_OPENWEATHER_API_KEY"
+				location: "Irvine",
+				locationID: "5359777", //ID from http://bulk.openweathermap.org/sample/city.list.json.gz; unzip the gz file and find your city
+				apiKey: "INSERT_API_KEY_HERE"
 			}
 		},
+		
+		//Newsfeed
 		{
 			module: "newsfeed",
 			position: "bottom_bar",
