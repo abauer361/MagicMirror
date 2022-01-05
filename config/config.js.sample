@@ -82,6 +82,11 @@ let config = {
 								url: 'CALENDARY_URL',
 								symbol: 'car'
 						},
+						//Birthdays
+						{
+								url: 'BIRTHDAY_URL',
+								symbol: 'birthday-cake'
+						},
 						//Holidays
 						{
 								symbol: "glass-cheers",
